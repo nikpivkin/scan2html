@@ -37,3 +37,19 @@ Examples:
   trivy plugin uninstall scan2html
 ```
 
+## Use container image
+
+```shell
+docker pull nikpivkin/scan2html
+
+docker run -it --rm \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $HOME/Library/Caches:/root/.cache/ \
+  -v $PWD:/project_dir \
+  nikpivkin/scan2html:latest image --dependency-tree python /project_dir/result.html
+  
+docker run -it --rm \
+  -v $HOME/Library/Caches:/root/.cache/ \
+  -v $PWD:/project_dir \
+  nikpivkin/scan2html:latest fs /project_dir /project_dir/result.html
+```

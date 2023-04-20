@@ -53,3 +53,74 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
+
+dockers:
+  - image_templates:
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-amd64"
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:latest-amd64"
+    use: buildx
+    goos: linux
+    goarch: amd64
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.description=A Trivy plugin that scans and outputs the results to a html file."
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--platform=linux/arm64"
+
+  - image_templates:
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-arm64"
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:latest-arm64"
+    use: buildx
+    goos: linux
+    goarch: arm64
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.description=A Trivy plugin that scans and outputs the results to a html file."
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--platform=linux/arm64"
+
+  - image_templates:
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-s390x"
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:latest-s390x"
+    use: buildx
+    goos: linux
+    goarch: s390x
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.description=A Trivy plugin that scans and outputs the results to a html file."
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--platform=linux/s390x"
+
+  - image_templates:
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-ppc64le"
+      - "ghcr.io/nikpivkin/{{ .ProjectName }}:latest-ppc64le"
+    use: buildx
+    goos: linux
+    goarch: ppc64le
+    build_flag_templates:
+      - "--label=org.opencontainers.image.created={{ .Date }}"
+      - "--label=org.opencontainers.image.title={{ .ProjectName }}"
+      - "--label=org.opencontainers.image.description=A Trivy plugin that scans and outputs the results to a html file."
+      - "--label=org.opencontainers.image.revision={{ .FullCommit }}"
+      - "--label=org.opencontainers.image.version={{ .Version }}"
+      - "--platform=linux/ppc64le"
+
+docker_manifests:
+  - name_template: 'ghcr.io/aquasecurity/trivy:{{ .Version }}'
+    image_templates:
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-amd64'
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-arm64'
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-s390x'
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-ppc64le'
+  - name_template: 'ghcr.io/aquasecurity/trivy:latest'
+    image_templates:
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-amd64'
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-arm64'
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-s390x'
+    - 'ghcr.io/nikpivkin/{{ .ProjectName }}:{{ .Version }}-ppc64le'

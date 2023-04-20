@@ -5,3 +5,5 @@ dist/
 first.html
 second.html
 **/.DS_Store
+
+.yarn
